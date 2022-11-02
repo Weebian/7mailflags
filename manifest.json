@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "7 Mail Flags",
+    "author": "Hoang Xuan Bui",
+    "description": "Plugin to identify the red flags in potentially malicious emails",
+    "version": "1.0",
+    "content_scripts": [
+      {
+        "matches": ["https://mail.google.com/*", "http://mail.google.com/*"],
+        "include_globs": ["*mail.google.com/*"],
+        "css": ["style.css"],
+        "js": ["scripts/content.js"],
+        "run_at": "document_idle"
+      }
+    ],
+    "permissions": [
+      "activeTab"
+    ],
+    "icons":{
+
+    }
+}
