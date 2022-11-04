@@ -1,4 +1,4 @@
-const emailUrlList = [/.+?mail\.google\.com\/mail\/.+?\/.+?\/#.+?\/.*/, /.+?mail\.google\.com\/mail\/.+?\/.+?\/\?ui=.*\&search\=.*\&cvid=\d*/];
+const emailUrlList = [/.+?mail\.google\.com\/mail\/.+?\/.+?\/#.+?\/.*/, /.+?mail\.google\.com\/mail\/.+?\/.+?\/\?ui=.*\&search\=.*\&cvid=\d*/, /.+?mail\.google\.com\/mail\/.+?\/.+?\/.+?#.+?\/.*/];
 const targetNode = document.body;
 const config = { attributes: false, childList: true, subtree: false};
 var called = false;
@@ -24,10 +24,11 @@ const callback = (mutationList, observer) => {
   //Add or remove email result block
   if(matchUrl && hrefUpdated && !called){
     addResultBlock();
+    addAnalysisBlock();
     called = true;
   }
   else if(!matchUrl && called){
-    removeResultBlock();
+    removeBlock();
     called = false;
   }
 };
@@ -60,22 +61,59 @@ function createNode(elName, elId, elClass, elContent){
 //Create result block
 function addResultBlock(){
   //email result block
-  var el = createNode("div", "emailResult", undefined, undefined)
+  var el = createNode("div", "emailResult", undefined, undefined);
   insertAfter(document.getElementById(":4"), el);
 
   //Block content
   var titleNode = createNode("h3", undefined, undefined, "Results: Suspicious");
-  var titleSpan = createNode("span", undefined, ["titleSpan"], undefined)
-  var titleButton = createNode("button", "resultButton", undefined, "Click here for more info")
+  var titleSpan = createNode("span", undefined, ["titleSpan"], undefined);
+  var titleButton = createNode("button", "resultButton", undefined, "Click here for more info");
 
-  titleSpan.appendChild(titleButton)
-  titleNode.appendChild(titleSpan)
+  titleSpan.appendChild(titleButton);
+  titleNode.appendChild(titleSpan);
   document.getElementById('emailResult').appendChild(titleNode);
 };
 
-//Remove result block
-function removeResultBlock(){
+//Remove blocks
+function removeBlock(){
   document.getElementById("emailResult").remove();
+  document.getElementById("emailAnalysis").remove();
+};
+
+//Create analysis block
+function addAnalysisBlock(){
+  var el = createNode("div", "emailAnalysis", undefined, "test");
+  var email = document.getElementById(":3");
+
+  //1st flag
+
+  //2nd flag
+
+  //3rd flag
+
+  //4th flag
+
+  //5th flag
+
+  //6th flag
+
+  //7th flag
+
+  //Append and hide
+  insertAfter(document.getElementById("emailResult"), el);
+  el.style.display = "none";
+  document.getElementById("resultButton").onclick = toggleAnalysis;
+};
+
+function toggleAnalysis(){
+  var analysisBlock = document.getElementById("emailAnalysis");
+
+  if(analysisBlock.style.display === "none"){
+    analysisBlock.style.display = "block";
+  }
+  else{
+    analysisBlock.style.display = "none";
+  }
 };
 
 var observer = new MutationObserver(callback);
