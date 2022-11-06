@@ -1,6 +1,27 @@
 const emailUrlList = [/.+?mail\.google\.com\/mail\/.+?\/.+?\/#.+?\/.*/, /.+?mail\.google\.com\/mail\/.+?\/.+?\/\?ui=.*\&search\=.*\&cvid=\d*/, /.+?mail\.google\.com\/mail\/.+?\/.+?\/.+?#.+?\/.*/];
 const targetNode = document.body;
 const config = { attributes: false, childList: true, subtree: false};
+const flag1 = [
+  "urgent",
+  "compel",
+  "critical",
+  "crucial",
+  "demand",
+  "essential",
+  "imperative",
+  "indispensable",
+  "vital",
+  "hurry-up",
+  "insist",
+  "life and death",
+  "paramount",
+  "imminent",
+  "grave",
+  "warn",
+  "danger",
+  "desperate"
+];
+
 var called = false;
 
 const callback = (mutationList, observer) => {
@@ -65,7 +86,7 @@ function addResultBlock(){
   insertAfter(document.getElementById(":4"), el);
 
   //Block content
-  var titleNode = createNode("h3", undefined, undefined, "Results: Suspicious");
+  var titleNode = createNode("h3", "result", undefined, "Results: Not Suspicious");
   var titleSpan = createNode("span", undefined, ["titleSpan"], undefined);
   var titleButton = createNode("button", "resultButton", undefined, "Click here for more info");
 
@@ -82,11 +103,23 @@ function removeBlock(){
 
 //Create analysis block
 function addAnalysisBlock(){
-  var el = createNode("div", "emailAnalysis", undefined, "test");
+  var el = createNode("div", "emailAnalysis", undefined, "Note: There is always a change of false positive or false negative. It is important to double-check before judgement.");
   var email = document.getElementById(":3");
+  var sus = [false, false, false, false, false, false, false]; //each index represent a flag
 
   //1st flag
-
+  for (let i = 0; i < flag1.length; i+=1){
+    if(email.innerHTML.indexOf(flag1[i]) !== -1){
+      sus[0] = true;
+      console.log(flag1[i])
+      break;
+    }
+  }
+  if(sus[0] === true){
+    var flag1El = createNode("h4", "f1", undefined, "Flag 1: Contains urgent or threatening language")
+    el.appendChild(flag1El);
+  }
+  
   //2nd flag
 
   //3rd flag
@@ -103,6 +136,17 @@ function addAnalysisBlock(){
   insertAfter(document.getElementById("emailResult"), el);
   el.style.display = "none";
   document.getElementById("resultButton").onclick = toggleAnalysis;
+
+  //Update Results
+  if (sus.includes(true)){
+    console.log("hi")
+    document.getElementById("result").firstChild.nodeValue = "Results: Suspicious"
+    //change colour of block
+    //add recommendation
+  }
+  else{
+    //change colour of block
+  }
 };
 
 function toggleAnalysis(){
