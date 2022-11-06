@@ -33,6 +33,15 @@ const flag2 = [
   "remittance",
   "account"
 ];
+const flag3 = [
+  "win",
+  "prize",
+  "lottery",
+  "inheritance",
+  "gift",
+  "congrat",
+  "congratulation"
+];
 
 var called = false;
 
@@ -134,6 +143,11 @@ function addAnalysisBlock(){
   }
 
   //3rd flag
+  var flag3El = flagTriggered(email, flag3, "f3", "Flag 3: Anything too good to be true");
+  if(flag3El !== undefined){
+    el.appendChild(flag3El);
+    sus[2] = true;
+  }
 
   //4th flag
 
