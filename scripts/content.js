@@ -21,6 +21,18 @@ const flag1 = [
   "danger",
   "desperate"
 ];
+const flag2 = [
+  "click on this link",
+  "click here",
+  "login",
+  "password",
+  "credit",
+  "bank",
+  "finance",
+  "financial",
+  "remittance",
+  "account"
+];
 
 var called = false;
 
@@ -108,19 +120,18 @@ function addAnalysisBlock(){
   var sus = [false, false, false, false, false, false, false]; //each index represent a flag
 
   //1st flag
-  for (let i = 0; i < flag1.length; i+=1){
-    if(email.innerHTML.indexOf(flag1[i]) !== -1){
-      sus[0] = true;
-      console.log(flag1[i])
-      break;
-    }
-  }
-  if(sus[0] === true){
-    var flag1El = createNode("h4", "f1", undefined, "Flag 1: Contains urgent or threatening language")
+  var flag1El = flagTriggered(email, flag1, "f1", "Flag 1: Contains urgent or threatening language");
+  if(flag1El !== undefined){
     el.appendChild(flag1El);
+    sus[0] = true;
   }
   
   //2nd flag
+  var flag2El = flagTriggered(email, flag2, "f2", "Flag 2: Requests For Sensitive Information");
+  if(flag2El !== undefined){
+    el.appendChild(flag2El);
+    sus[1] = true;
+  }
 
   //3rd flag
 
@@ -139,13 +150,20 @@ function addAnalysisBlock(){
 
   //Update Results
   if (sus.includes(true)){
-    console.log("hi")
     document.getElementById("result").firstChild.nodeValue = "Results: Potentially Suspicious"
     //change colour of block
     //add recommendation
   }
   else{
     //change colour of block
+  }
+};
+
+function flagTriggered(mailBlock, flagList, flagID, flagText){
+  for (let i = 0; i < flagList.length; i+=1){
+    if(mailBlock.innerHTML.indexOf(flagList[i]) !== -1){
+      return createNode("h4", flagID, undefined, flagText);
+    }
   }
 };
 
