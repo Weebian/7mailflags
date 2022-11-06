@@ -140,7 +140,7 @@ function addAnalysisBlock(){
   //Update Results
   if (sus.includes(true)){
     console.log("hi")
-    document.getElementById("result").firstChild.nodeValue = "Results: Suspicious"
+    document.getElementById("result").firstChild.nodeValue = "Results: Potentially Suspicious"
     //change colour of block
     //add recommendation
   }
