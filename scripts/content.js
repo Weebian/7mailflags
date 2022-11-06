@@ -22,8 +22,6 @@ const flag1 = [
   "desperate"
 ];
 const flag2 = [
-  "click on this link",
-  "click here",
   "login",
   "password",
   "credit",
@@ -34,7 +32,6 @@ const flag2 = [
   "account"
 ];
 const flag3 = [
-  "win",
   "prize",
   "lottery",
   "inheritance",
@@ -42,6 +39,16 @@ const flag3 = [
   "congrat",
   "congratulation"
 ];
+const flag4 = [
+  "receipt",
+  "purchase",
+  "buy",
+  "sell",
+  "deliver",
+  "parcel",
+  "order",
+  "gift"
+]
 
 var called = false;
 
@@ -150,7 +157,11 @@ function addAnalysisBlock(){
   }
 
   //4th flag
-
+  var flag4El = flagTriggered(email, flag4, "f4", "Flag 4: UNEXPECTED  EMAILS");
+  if(flag4El !== undefined){
+    el.appendChild(flag4El);
+    sus[3] = true;
+  }
   //5th flag
 
   //6th flag
@@ -176,6 +187,7 @@ function addAnalysisBlock(){
 function flagTriggered(mailBlock, flagList, flagID, flagText){
   for (let i = 0; i < flagList.length; i+=1){
     if(mailBlock.innerHTML.indexOf(flagList[i]) !== -1){
+      console.log(flagList[i])
       return createNode("h4", flagID, undefined, flagText);
     }
   }
