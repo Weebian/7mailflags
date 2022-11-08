@@ -1,2 +1,2 @@
 # EmailScanner
-Plugin and add-on to identify potential signs of a malicious email (spam & phishing)
+Chrome plugin to identify potential signs of a malicious/suspicious email in gmail.
