@@ -24,12 +24,12 @@ const flag1 = [
 const flag2 = [
   "login",
   "password",
-  "credit",
+  "credit card",
   "bank",
   "finance",
   "financial",
   "remittance",
-  "account"
+  "crypto"
 ];
 const flag3 = [
   "prize",
@@ -40,15 +40,19 @@ const flag3 = [
   "congratulation"
 ];
 const flag4 = [
-  "receipt",
   "purchase",
   "buy",
   "sell",
   "deliver",
   "parcel",
-  "order",
+  "order number",
   "gift"
-]
+];
+const flag5 = [
+  "<a href=",
+  "gmal",
+  "gmil"
+];
 
 var called = false;
 
@@ -132,7 +136,7 @@ function removeBlock(){
 //Create analysis block
 function addAnalysisBlock(){
   var el = createNode("div", "emailAnalysis", undefined, "Note: There is always a change of false positive or false negative. It is important to double-check before judgement.");
-  var email = document.getElementById(":3");
+  var email = document.getElementById(":1");
   var sus = [false, false, false, false, false, false, false]; //each index represent a flag
 
   //1st flag
@@ -157,12 +161,18 @@ function addAnalysisBlock(){
   }
 
   //4th flag
-  var flag4El = flagTriggered(email, flag4, "f4", "Flag 4: UNEXPECTED  EMAILS");
+  var flag4El = flagTriggered(email, flag4, "f4", "Flag 4: Unexpected emails");
   if(flag4El !== undefined){
     el.appendChild(flag4El);
     sus[3] = true;
   }
+
   //5th flag
+  var flag5El = flagTriggered(email, flag5, "f5", "Flag 5: Potential information Mismatches");
+  if(flag5El !== undefined){
+    el.appendChild(flag5El);
+    sus[4] = true;
+  }
 
   //6th flag
 
