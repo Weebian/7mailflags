@@ -53,6 +53,10 @@ const flag5 = [
   "gmal",
   "gmil"
 ];
+const flag6 = [
+  "<img",
+  '<div class="aSH">'
+];
 
 var called = false;
 
@@ -175,6 +179,11 @@ function addAnalysisBlock(){
   }
 
   //6th flag
+  var flag6El = flagTriggered(email, flag6, "f6", "Flag 6: Suspicious Attachments");
+  if(flag6El !== undefined){
+    el.appendChild(flag6El);
+    sus[5] = true;
+  }
 
   //7th flag
 
