@@ -186,7 +186,9 @@ function addAnalysisBlock(){
   }
 
   //7th flag
-
+  var flag7El = flagTriggered(email, flag7, "f7", "Flag 7: Potential Unprofessional Design");
+  sus[6] = true;
+  
   //Append and hide
   insertAfter(document.getElementById("emailResult"), el);
   el.style.display = "none";
