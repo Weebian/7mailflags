@@ -185,10 +185,6 @@ function addAnalysisBlock(){
     sus[5] = true;
   }
 
-  //7th flag
-  var flag7El = flagTriggered(email, flag7, "f7", "Flag 7: Potential Unprofessional Design");
-  sus[6] = true;
-  
   //Append and hide
   insertAfter(document.getElementById("emailResult"), el);
   el.style.display = "none";
@@ -199,9 +195,6 @@ function addAnalysisBlock(){
     document.getElementById("result").firstChild.nodeValue = "Results: Potentially Suspicious"
     //change colour of block
     //add recommendation
-  }
-  else{
-    //change colour of block
   }
 };
 
